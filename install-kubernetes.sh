@@ -16,4 +16,4 @@ kubectl apply -f https://github.com/coreos/flannel/raw/master/Documentation/kube
 kubectl create -f https://raw.githubusercontent.com/coreos/flannel/master/Documentation/kube-flannel-rbac.yml
 
 #Join worker-node
-kubeadm join 192.168.56.10:6443 --token xd1jbf.0oi6c5x5y1wkn54l --discovery-token-ca-cert-hash sha256:3d4ca66bb10e235f73e917c1b44920d6c608ed4c4599d6869686cad4582d3001 
+kubeadm join 192.168.56.10:6443 --token aci5or.xb7w9lme5skijjsg --discovery-token-ca-cert-hash sha256:0fdd4aacd376e5f327f558946b87d25b954d4ac5fb23a32f528c7da5b86e3f74
