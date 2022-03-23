@@ -1,0 +1,28 @@
+{{- if .Values.install.couchbaseCluster }}
+{{- if .Values.buckets }}
+---
+{{- $rootScope := . -}}
+apiVersion: v1
+kind: List
+metadata:
+  name: {{ printf "%s-buckets" (include "couchbase-cluster.clustername" .) }}
+items:
+{{- range $bucket, $spec := .Values.buckets }}
+{{- if typeIs "map[string]interface {}" $spec }}
+- apiVersion: couchbase.com/v2
+  kind: {{ default "CouchbaseBucket" $spec.kind }}
+  metadata:
+    name: {{ default $bucket $spec.resourceName }}
+    labels:
+      cluster: {{ include "couchbase-cluster.clustername" $rootScope }}
+  spec:
+
+{{/* Remove index replica for Ephemeral Type */}}
+{{- if eq (default $spec.kind "CouchbaseBucket") "CouchbaseEphemeralBucket" -}}
+{{- $spec := unset $spec "enableIndexReplica" -}}
+{{- end -}}
+{{ omit $spec "kind" | toYaml | indent 4 }}
+{{- end }}
+{{- end }}
+{{- end }}
+{{- end }}
