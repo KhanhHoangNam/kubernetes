@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: mariadb-slave-pv
+spec:
+  storageClassName: mariadb-slave-pv
+  capacity: 
+    storage: 10Gi
+  accessModes:
+    - ReadWriteOnce
+    - ReadOnlyMany
+  persistentVolumeReclaimPolicy: Retain
+  nfs:
+    path: "/data/mydata/"
+    server: "192.168.56.10"
