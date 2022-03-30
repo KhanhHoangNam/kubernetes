@@ -21,12 +21,15 @@ kubectl create -f  mariadbslave-pvc.yaml
 #5.
 helm install --name mariadb --set master.persistence.existingClaim=mariadb-pvc stable/mariadb #Helm 2
 helm install mariadb --set master.persistence.existingClaim=mariadb-pvc stable/mariadb #Helm 3
-
+helm install mariadb --set master.persistence.existingClaim=mariadb-master-pvc slave.persistence.existingClaim=mariadb-slave-pvc bitnami/mariadb
+helm install mariadb --set primary.persistence.existingClaim=mariadb-master-pvc --set secondary.persistence.existingClaim=mariadb-slave-pvc bitnami/mariadb
 #6. Password: gFyTBqHjTz
 
 echo Password: $(kubectl get secret --namespace default mariadb -o jsonpath="{.data.mariadb-root-password}" | base64 --decode)
-password: c0sgBCE9Sx; puJzm2E7m2; W2VJovbUI5
+password: c0sgBCE9Sx; puJzm2E7m2; W2VJovbUI5; Password: ZEmVLXxlyw
 mysql -u root -p$MARIADB_ROOT_PASSWORD
 mysql -h mariadb.default.svc.cluster.local -uroot -pW2VJovbUI5
 mysql -h 10.106.115.209:3306 -uroot -p my_database
 mysql -h 192.168.56.11 -u root -p$MARIADB_ROOT_PASSWORD
+
+curl "https://raw.githubusercontent.com/helm/charts/master/stable/mariadb/values.yaml" "values.yaml"
