@@ -115,10 +115,10 @@ rootUser:
   ## Option to force users to specify a password. That is required for 'helm upgrade' to work properly.
   ## If it is not force, a random password will be generated.
   ##
-  forcePassword: false
+  forcePassword: true
   ## Mount admin password as a file instead of using an environment variable
   ##
-  injectSecretsAsVolume: false
+  injectSecretsAsVolume: true
 
 ## Custom user/db credentials
 ##
@@ -135,10 +135,10 @@ db:
   ## Option to force users to specify a password. That is required for 'helm upgrade' to work properly.
   ## If it is not force, a random password will be generated.
   ##
-  forcePassword: false
+  forcePassword: true
   ## Mount user password as a file instead of using an environment variable
   ##
-  injectSecretsAsVolume: false
+  injectSecretsAsVolume: true
 
 ## Replication configuration
 ##
@@ -158,10 +158,10 @@ replication:
   ## Option to force users to specify a password. That is required for 'helm upgrade' to work properly.
   ## If it is not force, a random password will be generated.
   ##
-  forcePassword: false
+  forcePassword: true
   ## Mount replication user password as a file instead of using an environment variable
   ##
-  injectSecretsAsVolume: false
+  injectSecretsAsVolume: true
 
 ## initdb scripts
 ## Specify dictionary of scripts to be run at first boot
@@ -221,7 +221,7 @@ master:
     ##
     enabled: true
     # Enable persistence using an existing PVC
-    existingClaim: mariadb-master-pvc
+    # existingClaim:
     # Subdirectory of the volume to mount
     # subPath:
     mountPath: /bitnami/mariadb
@@ -323,7 +323,6 @@ master:
     ## Add custom annotations to the service
     ##
     annotations: {}
-      # external-dns.alpha.kubernetes.io/hostname: db.example.com
 
 slave:
   replicas: 2
@@ -337,7 +336,7 @@ slave:
   ## MariaDB additional command line flags
   ## Can be used to specify command line flags, for example:
   ##
-  ## extraFlags: "--max-connect-errors=1000 --max_connections=155"
+  ## extraFlags: --max-connect-errors=1000 --max_connections=155"
 
   ## Affinity for pod assignment
   ## Ref: https://kubernetes.io/docs/concepts/configuration/assign-pod-node/#affinity-and-anti-affinity
@@ -368,7 +367,7 @@ slave:
     ## If true, use a Persistent Volume Claim, If false, use emptyDir
     ##
     enabled: true
-    storageClass: mariadb-slave-pvc
+    # storageClass: "-"
     annotations:
     accessModes:
     - ReadWriteOnce
@@ -454,10 +453,9 @@ slave:
     ## Add custom annotations to the service
     ##
     annotations: {}
-      # external-dns.alpha.kubernetes.io/hostname: rodb.example.com
 
 metrics:
-  enabled: false
+  enabled: true
   image:
     registry: docker.io
     repository: bitnami/mysqld-exporter
