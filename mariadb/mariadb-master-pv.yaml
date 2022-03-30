@@ -10,6 +10,5 @@ spec:
     - ReadWriteOnce
     - ReadOnlyMany
   persistentVolumeReclaimPolicy: Retain
-  nfs:
-    path: "/data/mydata/"
-    server: "192.168.56.10"
+  hostPath:
+    path: "/data/mariadb-primary"
