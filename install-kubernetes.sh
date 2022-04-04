@@ -17,6 +17,7 @@ kubectl create -f https://raw.githubusercontent.com/coreos/flannel/master/Docume
 
 #Join worker-node
 kubeadm join 192.168.56.10:6443 --token aci5or.xb7w9lme5skijjsg --discovery-token-ca-cert-hash sha256:0fdd4aacd376e5f327f558946b87d25b954d4ac5fb23a32f528c7da5b86e3f74
+kubeadm join 192.168.56.10:6443 --token lis9do.ur16ck2d8gnipdx8 --discovery-token-ca-cert-hash sha256:60ceb3f49885533f73f993935f359592d5b5a6720d77652fd84eb70ce410038e 
 
 #Install couch base
 #Add repo
@@ -69,3 +70,5 @@ To upgrade this helm chart:
       user: root
       password: ToARMZ2HgY
       url: http://mariadb.default.svc.cluster.local:3306
+
+brew install --appdir="/Applications" vagrant
