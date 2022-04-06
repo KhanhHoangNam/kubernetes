@@ -11,4 +11,4 @@ spec:
     - ReadOnlyMany
   persistentVolumeReclaimPolicy: Retain
   hostPath:
-    path: "/data/mariadb-secondary"
+    path: "/bitnami/mariadb"

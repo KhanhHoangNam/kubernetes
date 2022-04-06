@@ -33,3 +33,6 @@ mysql -h 10.106.115.209:3306 -uroot -p my_database
 mysql -h 192.168.56.11 -u root -p$MARIADB_ROOT_PASSWORD
 
 curl "https://raw.githubusercontent.com/helm/charts/master/stable/mariadb/values.yaml" "values.yaml"
+
+brew install telnet --appdir="~/Applications"
+Password de5Xmz68Uc

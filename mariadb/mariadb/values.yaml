@@ -73,7 +73,7 @@ diagnosticMode:
 image:
   registry: docker.io
   repository: bitnami/mariadb
-  tag: 10.5.15-debian-10-r30
+  tag: 10.5.15-debian-10-r45
   ## Specify a imagePullPolicy
   ## Defaults to 'Always' if image tag is 'latest', else set to 'IfNotPresent'
   ## ref: https://kubernetes.io/docs/user-guide/images/#pre-pulling-images
@@ -414,7 +414,7 @@ primary:
     ## @param primary.persistence.existingClaim Name of an existing `PersistentVolumeClaim` for MariaDB primary replicas
     ## NOTE: When it's set the rest of persistence parameters are ignored
     ##
-    existingClaim: ""
+    existingClaim: mariadb-master-pvc
     ## @param primary.persistence.subPath Subdirectory of the volume to mount at
     ##
     subPath: ""
@@ -425,7 +425,7 @@ primary:
     ##   set, choosing the default provisioner.  (gp2 on AWS, standard on
     ##   GKE, AWS & OpenStack)
     ##
-    storageClass: ""
+    storageClass: mariadb-master-pv
     ## @param primary.persistence.annotations MariaDB primary persistent volume claim annotations
     ##
     annotations: {}
@@ -459,7 +459,7 @@ primary:
   service:
     ## @param primary.service.type MariaDB Primary Kubernetes service type
     ##
-    type: ClusterIP
+    type: NodePort
     ## @param primary.service.ports.mysql MariaDB Primary Kubernetes service port
     ##
     ports:
@@ -468,7 +468,7 @@ primary:
     ## ref: https://kubernetes.io/docs/concepts/services-networking/service/#type-nodeport
     ##
     nodePorts:
-      mysql: ""
+      mysql: 30306
     ## @param primary.service.clusterIP MariaDB Primary Kubernetes service clusterIP IP
     ##
     clusterIP: ""
@@ -793,7 +793,7 @@ secondary:
     ##   set, choosing the default provisioner.  (gp2 on AWS, standard on
     ##   GKE, AWS & OpenStack)
     ##
-    storageClass: ""
+    storageClass: mariadb-slave-pv
     ## @param secondary.persistence.annotations MariaDB secondary persistent volume claim annotations
     ##
     annotations: {}
@@ -935,7 +935,7 @@ volumePermissions:
   image:
     registry: docker.io
     repository: bitnami/bitnami-shell
-    tag: 10-debian-10-r368
+    tag: 10-debian-10-r383
     pullPolicy: IfNotPresent
     ## Optionally specify an array of imagePullSecrets (secrets must be manually created in the namespace)
     ## ref: https://kubernetes.io/docs/tasks/configure-pod-container/pull-image-private-registry/
@@ -968,7 +968,7 @@ metrics:
   image:
     registry: docker.io
     repository: bitnami/mysqld-exporter
-    tag: 0.14.0-debian-10-r13
+    tag: 0.14.0-debian-10-r28
     pullPolicy: IfNotPresent
     ## Optionally specify an array of imagePullSecrets (secrets must be manually created in the namespace)
     ## ref: https://kubernetes.io/docs/tasks/configure-pod-container/pull-image-private-registry/
