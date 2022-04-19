@@ -72,3 +72,17 @@ To upgrade this helm chart:
       url: http://mariadb.default.svc.cluster.local:3306
 
 brew install --appdir="/Applications" vagrant
+sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
+curl -O https://raw.githubusercontent.com/MartinSeeler/iterm2-material-design/master/material-design-colors.itermcolors
+git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
+git clone https://github.com/zsh-users/zsh-syntax-highlighting.git $ZSH_CUSTOM/plugins/zsh-syntax-highlighting
+
+brew install helm --appdir="~/Applications"
+helm pull bitnami/mariadb --version 10.4.5 --untar
+helm repo add couchbase https://couchbase-partners.github.io/helm-charts/
+helm pull couchbase/couchbase-operator
+
+
+rsync ~/Downloads/speed -i "nathan-key.pem" ec2-user@3.0.17.175:/home/ec2-user
+scp -i "nathan-key.pem" Speed.zip ec2-user@ec2-3-0-17-175.ap-southeast-1.compute.amazonaws.com:/home/ec2-user
+docker run -d --restart=unless-stopped --privileged -p 80:80 -p 443:443 -v /opt/rancher:/var/lib/rancher rancher/rancher:latest
