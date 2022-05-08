@@ -18,6 +18,7 @@ kubectl create -f https://raw.githubusercontent.com/coreos/flannel/master/Docume
 #Join worker-node
 kubeadm join 192.168.56.10:6443 --token aci5or.xb7w9lme5skijjsg --discovery-token-ca-cert-hash sha256:0fdd4aacd376e5f327f558946b87d25b954d4ac5fb23a32f528c7da5b86e3f74
 kubeadm join 192.168.56.10:6443 --token lis9do.ur16ck2d8gnipdx8 --discovery-token-ca-cert-hash sha256:60ceb3f49885533f73f993935f359592d5b5a6720d77652fd84eb70ce410038e 
+kubeadm join 192.168.56.10:6443 --token a4wyqq.6vhdj9dmdtfw0zcp --discovery-token-ca-cert-hash sha256:110376352386c321074a092e94c133a28107fcbf9f9e5a386825c38f8bce4e3c
 
 #Install couch base
 #Add repo
@@ -86,3 +87,25 @@ helm pull couchbase/couchbase-operator
 rsync ~/Downloads/speed -i "nathan-key.pem" ec2-user@3.0.17.175:/home/ec2-user
 scp -i "nathan-key.pem" Speed.zip ec2-user@ec2-3-0-17-175.ap-southeast-1.compute.amazonaws.com:/home/ec2-user
 docker run -d --restart=unless-stopped --privileged -p 80:80 -p 443:443 -v /opt/rancher:/var/lib/rancher rancher/rancher:latest
+
+helm pull sentry/sentry --version 14.0.2 --untar
+
+sudo docker run -d --restart=unless-stopped -p 80:80 -p 443:443 --privileged -v /opt/rancher:/var/lib/rancher rancher/rancher:latest
+sudo docker run -d --restart=unless-stopped -p 80:80 -p 443:443 --privileged -v /opt/rancher:/var/lib/rancher-data rancher/rancher:stable
+
+docker logs  container-id  2>&1 | grep "Bootstrap Password:"
+docker logs  hopeful_borg  2>&1 | grep "Bootstrap Password:"
+
+192.168.56.10
+
+fsmml48c9zctjn49gs9bp4sgfv7w2ft6tfpxvxnhtdj2967d4stt5m
+
+scp root@192.168.56.10:/etc/kubernetes/admin.conf ~/.kube/config-cluster
+scp -i ~/Downloads/keypairssh.crash root@165.22.62.165:/root/rancher-deployment.yaml ~/Documents/worksapce/kubernetes/rancher
+export KUBECONFIG=~/.kube/config:~/.kube/config-cluster
+
+172.17.0.2
+
+curl --insecure -sfL https://165.22.62.165/v3/import/s7n4g24t8j9m4zmnzcmrvscd8ndspxf85t89fwdgqxrd5dp2g2x6xr_c-m-vn8x6rcd.yaml
+
+docker logs  gifted_borg  2>&1 | grep "Bootstrap Password:" xr5742xgjlbf6pnx5rf796xdxh6t528mcwwj4jlbdmdxbm6djchz66
