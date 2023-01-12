@@ -89,9 +89,11 @@ scp -i "nathan-key.pem" Speed.zip ec2-user@ec2-3-0-17-175.ap-southeast-1.compute
 docker run -d --restart=unless-stopped --privileged -p 80:80 -p 443:443 -v /opt/rancher:/var/lib/rancher rancher/rancher:latest
 
 helm pull sentry/sentry --version 14.0.2 --untar
+docker pull rancher/server:v1.6.26-rc7
 
 sudo docker run -d --restart=unless-stopped -p 80:80 -p 443:443 --privileged -v /opt/rancher:/var/lib/rancher rancher/rancher:latest
 sudo docker run -d --restart=unless-stopped -p 80:80 -p 443:443 --privileged -v /opt/rancher:/var/lib/rancher-data rancher/rancher:stable
+sudo docker run -d --restart=unless-stopped -p 80:80 -p 443:443 --privileged -v /opt/rancher:/var/lib/rancher-data rancher/server:v1.6.26-rc7
 
 docker logs  container-id  2>&1 | grep "Bootstrap Password:"
 docker logs  hopeful_borg  2>&1 | grep "Bootstrap Password:"
@@ -106,6 +108,12 @@ export KUBECONFIG=~/.kube/config:~/.kube/config-cluster
 
 172.17.0.2
 
-curl --insecure -sfL https://165.22.62.165/v3/import/s7n4g24t8j9m4zmnzcmrvscd8ndspxf85t89fwdgqxrd5dp2g2x6xr_c-m-vn8x6rcd.yaml
+kubectl create clusterrolebinding cluster-admin-binding --clusterrole cluster-admin --user kubernetes-admin
 
-docker logs  gifted_borg  2>&1 | grep "Bootstrap Password:" xr5742xgjlbf6pnx5rf796xdxh6t528mcwwj4jlbdmdxbm6djchz66
+curl --insecure -sfL https://165.22.62.165/v3/import/s7n4g24t8j9m4zmnzcmrvscd8ndspxf85t89fwdgqxrd5dp2g2x6xr_c-m-vn8x6rcd.yaml
+kubectl apply -f https://165.22.62.165/v3/import/tnrz7lndclnsnbzf658tkn5bjp2pkzrkdj7lhh75dbqxc947tl7dgw_c-m-ctvz9vw5.yaml
+curl --insecure -sfL https://165.22.62.165/v3/import/89z8nxsd99ccjcfqmkwpvjwl76djcfbmhdbwj5mzd25x8lpfwlljq9_c-m-4ngqqrpr.yaml > rancher-deployment.yaml
+
+docker logs magical_varahamihira 2>&1 | grep "Bootstrap Password:" xr5742xgjlbf6pnx5rf796xdxh6t528mcwwj4jlbdmdxbm6djchz66
+
+helm template rancher rancher-latest/rancher --namespace cattle-system --set hostname=https://165.22.62.165/v3/import/tnrz7lndclnsnbzf658tkn5bjp2pkzrkdj7lhh75dbqxc947tl7dgw_c-m-ctvz9vw5.yaml --set tls=external > rancher.yaml

@@ -67,6 +67,8 @@ gpgkey=https://packages.cloud.google.com/yum/doc/rpm-package-key.gpg
 EOF
 
 yum install -y -q kubeadm kubelet kubectl
+# yum install -y -q kubeadm=1.23.x-0 kubelet=1.23.5x-0 kubectl=1.23.x-0
+# yum install -y kubeadm=1.23.x-0 kubelet-1.23.5-0 kubectl-1.23.5-0 --disableexcludes=kubernetes
 
 systemctl enable kubelet
 systemctl start kubelet
