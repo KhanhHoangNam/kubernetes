@@ -1,2 +1,2 @@
 # kubernetes
-Install kubernetes on centos7
+Installing kubernetes cluster on centos7 step by step
