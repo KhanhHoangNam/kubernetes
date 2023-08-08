@@ -3,7 +3,7 @@
 
 Vagrant.configure("2") do |config|
     config.vm.box = "centos/7"
-    config.vm.network "private_network", ip: "192.168.56.12"
+    config.vm.network "private_network", ip: "192.168.56.14"
     config.vm.hostname = "k8s-worker-02"
   
     config.vm.provider "virtualbox" do |vb|
@@ -23,11 +23,20 @@ Vagrant.configure("2") do |config|
   
   
   cat >>/etc/hosts<<EOF
+  192.168.56.7 elb
+  192.168.56.8 haproxy-01
+  192.168.56.9 haproxy-02
   192.168.56.10 k8s-master-01
-  192.168.56.11 k8s-worker-01
-  192.168.56.12 k8s-worker-02
+  192.168.56.11 k8s-master-02
+  192.168.56.12 k8s-master-03
+  192.168.56.13 k8s-worker-01
+  192.168.56.14 k8s-worker-02
+  192.168.56.15 k8s-worker-03
+  192.168.56.16 rancher
+  192.168.56.17 devci
+  192.168.56.17 gitlab
+  192.168.56.17 harbor
+
   EOF
-  
-      
     SHELL
   end
