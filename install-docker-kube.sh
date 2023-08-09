@@ -46,8 +46,9 @@ systemctl stop firewalld
 
 # sysctl
 cat >>/etc/sysctl.d/kubernetes.conf<<EOF
-net.bridge.bridge-nf-call-ip6tables = 1
-net.bridge.bridge-nf-call-iptables = 1
+net.bridge.bridge-nf-call-ip6tables=1
+net.bridge.bridge-nf-call-iptables=1
+net.ipv4.ip_foward=1
 EOF
 sysctl --system >/dev/null 2>&1
 
@@ -68,7 +69,7 @@ EOF
 
 # yum install -y -q kubeadm kubelet kubectl
 # yum install -y -q kubeadm=1.23.x-0 kubelet=1.23.5x-0 kubectl=1.23.x-0
-yum install -y kubeadm=1.23.x-0 kubelet-1.23.5-0 kubectl-1.23.5-0 --disableexcludes=kubernetes
+yum install -y kubeadm=1.23.5-0 kubelet-1.23.5-0 kubectl-1.23.5-0 --disableexcludes=kubernetes
 
 systemctl enable kubelet
 systemctl start kubelet
