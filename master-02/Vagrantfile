@@ -35,8 +35,8 @@ Vagrant.configure("2") do |config|
   192.168.56.15 k8s-worker-03
   192.168.56.16 rancher
   192.168.56.17 devci
-  192.168.56.17 gitlab
-  192.168.56.17 harbor
+  192.168.56.18 gitlab
+  192.168.56.19 harbor
 
   EOF
     SHELL
