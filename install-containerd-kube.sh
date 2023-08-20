@@ -2,38 +2,42 @@
 
 # Cập nhật 12/2019
 
-# Cai dat Docker
-yum install -y yum-utils device-mapper-persistent-data lvm2
-yum-config-manager --add-repo https://download.docker.com/linux/centos/docker-ce.repo
-# yum update -y && yum install docker-ce-18.06.2.ce -y
-yum update -y && yum install docker-ce docker-ce-cli containerd.io -y
-usermod -aG docker $(whoami)
-
-## Create /etc/docker directory.
-mkdir /etc/docker
-
-# Setup daemon.
-cat > /etc/docker/daemon.json <<EOF
-{
-  "exec-opts": ["native.cgroupdriver=systemd"],
-  "log-driver": "json-file",
-  "log-opts": {
-    "max-size": "100m"
-  },
-  "storage-driver": "overlay2",
-  "storage-opts": [
-    "overlay2.override_kernel_check=true"
-  ]
-}
+# Configure persistent loading of modules
+sudo tee /etc/modules-load.d/containerd.conf <<EOF
+overlay
+br_netfilter
 EOF
 
-mkdir -p /etc/systemd/system/docker.service.d
+# Load at runtime
+sudo modprobe overlay
+sudo modprobe br_netfilter
 
+# Ensure sysctl params are set
+sudo tee /etc/sysctl.d/kubernetes.conf<<EOF
+net.bridge.bridge-nf-call-ip6tables = 1
+net.bridge.bridge-nf-call-iptables = 1
+net.ipv4.ip_forward = 1
+EOF
 
-# Restart Docker
-systemctl enable docker.service
-systemctl daemon-reload
-systemctl restart docker
+# Reload configs
+sudo sysctl --system
+
+# Install required packages
+sudo yum install -y yum-utils device-mapper-persistent-data lvm2
+
+# Add Docker repo
+sudo yum-config-manager --add-repo https://download.docker.com/linux/centos/docker-ce.repo
+
+# Install containerd
+sudo yum update -y && yum install -y containerd.io
+
+# Configure containerd and start service
+sudo mkdir -p /etc/containerd
+sudo containerd config default > /etc/containerd/config.toml
+
+# restart containerd
+sudo systemctl restart containerd
+sudo systemctl enable containerd
 
 
 # Tat SELinux
@@ -44,12 +48,12 @@ sed -i --follow-symlinks 's/^SELINUX=enforcing/SELINUX=disabled/' /etc/sysconfig
 systemctl disable firewalld >/dev/null 2>&1
 systemctl stop firewalld
 
-# sysctl
-cat >>/etc/sysctl.d/kubernetes.conf<<EOF
-net.bridge.bridge-nf-call-ip6tables=1
-net.bridge.bridge-nf-call-iptables=1
-net.ipv4.ip_foward=1
-EOF
+## sysctl
+# cat >>/etc/sysctl.d/kubernetes.conf<<EOF
+# net.bridge.bridge-nf-call-ip6tables=1
+# net.bridge.bridge-nf-call-iptables=1
+# net.ipv4.ip_foward=1
+# EOF
 sysctl --system >/dev/null 2>&1
 
 # Tat swap

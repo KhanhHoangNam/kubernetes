@@ -3,16 +3,17 @@
 
 Vagrant.configure("2") do |config|
     config.vm.box = "centos/7"
+    config.vm.network "public_network", bridge: "VirtualBox Host-Only Ethernet Adapter"
     config.vm.network "private_network", ip: "192.168.56.14"
     config.vm.hostname = "k8s-worker-02"
   
     config.vm.provider "virtualbox" do |vb|
        vb.name = "k8s-worker-02"
-       vb.cpus = 2
-       vb.memory = "2048"
+       vb.cpus = 4
+       vb.memory = "8192"
     end
      
-    config.vm.provision "shell", path: "./../install-docker-kube.sh"
+    config.vm.provision "shell", path: "./../install-containerd-kube.sh"
   
     config.vm.provision "shell", inline: <<-SHELL
     

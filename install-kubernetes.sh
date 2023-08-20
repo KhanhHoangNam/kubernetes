@@ -2,7 +2,8 @@
 #Updated @since 20220315
 
 #Init kubernetes cluster
-kubeadm init --apiserver-advertise-address=192.168.56.10 --pod-network-cidr=10.244.0.0/16
+kubeadm init --control-plane-endpoint elb:6443 --apiserver-advertise-address=192.168.56.10 --pod-network-cidr=10.244.0.0/16 --upload-certs --v=5
+kubeadm init --control-plane-endpoint elb:6443 --pod-network-cidr=10.244.0.0/16 --upload-certs --v=5
 
 #Add config
 sudo cp /etc/kubernetes/admin.conf $HOME/
@@ -11,6 +12,8 @@ export KUBECONFIG=$HOME/admin.conf
 
 # Apply plugin network
 kubectl apply -f https://github.com/coreos/flannel/raw/master/Documentation/kube-flannel.yml
+
+
 
 #In this fail case
 kubectl create -f https://raw.githubusercontent.com/coreos/flannel/master/Documentation/kube-flannel-rbac.yml
@@ -117,3 +120,11 @@ curl --insecure -sfL https://165.22.62.165/v3/import/89z8nxsd99ccjcfqmkwpvjwl76d
 docker logs magical_varahamihira 2>&1 | grep "Bootstrap Password:" xr5742xgjlbf6pnx5rf796xdxh6t528mcwwj4jlbdmdxbm6djchz66
 
 helm template rancher rancher-latest/rancher --namespace cattle-system --set hostname=https://165.22.62.165/v3/import/tnrz7lndclnsnbzf658tkn5bjp2pkzrkdj7lhh75dbqxc947tl7dgw_c-m-ctvz9vw5.yaml --set tls=external > rancher.yaml
+
+echo $(kubeadm token create --print-join-command) --control-plane --certificate-key $(kubeadm init phase upload-certs --upload-certs | grep -vw -e certificate -e Namespace)
+
+kubeadm join elb:6443 --token 3aw3la.itz4cyc3ipgcnieb --discovery-token-ca-cert-hash sha256:448d78d3ece5de705d7c6e66039ed6e4f4176b71a8a1d774c898cd5eb2056048 --control-plane --certificate-key 35ea8e08c7662cafe4c30ff2ab58f318d696db8638f1833404c12d092ccf3e7a --v=5
+kubeadm join elb:6443 --token wxumet.pu069epch53g3fxv --discovery-token-ca-cert-hash sha256:448d78d3ece5de705d7c6e66039ed6e4f4176b71a8a1d774c898cd5eb2056048
+
+
+/sbin/route del default gw $IP
