@@ -1,0 +1,44 @@
+# -*- mode: ruby -*-
+# vi: set ft=ruby :
+
+Vagrant.configure("2") do |config|
+    config.vm.box = "centos/7"
+    config.vm.network "private_network", ip: "192.168.56.21"
+    config.vm.hostname = "k8s-worker-05"
+  
+    config.vm.provider "virtualbox" do |vb|
+       vb.name = "k8s-worker-05"
+       vb.cpus = 4
+       vb.memory = "8192"
+    end
+     
+    config.vm.provision "shell", path: "./../install-containerd-kube.sh"
+  
+    config.vm.provision "shell", inline: <<-SHELL
+    
+      echo "root password"
+      echo "123" | passwd --stdin root
+      sed -i 's/^PasswordAuthentication no/PasswordAuthentication yes/' /etc/ssh/sshd_config
+      systemctl reload sshd
+  
+  
+  cat >>/etc/hosts<<EOF
+  192.168.56.7 elb
+  192.168.56.8 haproxy-01
+  192.168.56.9 haproxy-02
+  192.168.56.10 k8s-master-01
+  192.168.56.11 k8s-master-02
+  192.168.56.12 k8s-master-03
+  192.168.56.13 k8s-worker-01
+  192.168.56.14 k8s-worker-02
+  192.168.56.15 k8s-worker-03
+  192.168.56.16 rancher
+  192.168.56.17 devci
+  192.168.56.18 gitlab
+  192.168.56.19 harbor
+  192.168.56.20 k8s-worker-04
+  192.168.56.21 k8s-worker-05
+
+  EOF
+    SHELL
+  end
