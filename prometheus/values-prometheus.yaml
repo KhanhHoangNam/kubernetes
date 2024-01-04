@@ -2475,7 +2475,39 @@ prometheus:
     ## The scrape configuration example below will find master nodes, provided they have the name .*mst.*, relabel the
     ## port to 2379 and allow etcd scraping provided it is running on all Kubernetes master nodes
     ##
-    additionalScrapeConfigs: []
+    additionalScrapeConfigs:
+     - job_name: minio-job
+       bearer_token: eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJwcm9tZXRoZXVzIiwic3ViIjoib2tPdW01ZFVpM3dEUW11TiIsImV4cCI6NDg1NzkwMDkxMn0.60xRXTn38LBRi-VWtq4lbYS_fdqekwwWRjyljhuL5vhO3zxTFMgj0LbzaOAo35UB8YFwsJuDTuqyUkgehKS3bw
+       metrics_path: /minio/v2/metrics/cluster
+       scheme: https
+       tls_config:
+         insecure_skip_verify: true
+       static_configs:
+       - targets: ['minio.first-object-storage.svc.cluster.local:443']
+     - job_name: minio-job-node
+       bearer_token: eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJwcm9tZXRoZXVzIiwic3ViIjoib2tPdW01ZFVpM3dEUW11TiIsImV4cCI6NDg1NzkwMDk2M30.0SBsSXLhmKLsSSlGs4hww_SINH8hnmeWKi70Zwq3yBK5w4wqDT95ozUByll1eHC56m9daVe5i_xJB9TVvdUs4A
+       metrics_path: /minio/v2/metrics/node
+       scheme: https
+       tls_config:
+         insecure_skip_verify: true
+       static_configs:
+       - targets: ['minio.first-object-storage.svc.cluster.local:443']
+     - job_name: minio-job-bucket
+       bearer_token: eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJwcm9tZXRoZXVzIiwic3ViIjoib2tPdW01ZFVpM3dEUW11TiIsImV4cCI6NDg1NzkwMTAwNn0.DINBAcvp8ABBx9ymhhFnyXi22YBPmTMuBMxX2fKhFBqbHGKQ5ghqEwvUCKZZV1rpj2jjXZlyV79s7Ld2tk2t_g
+       metrics_path: /minio/v2/metrics/bucket
+       scheme: https
+       tls_config:
+         insecure_skip_verify: true
+       static_configs:
+        - targets: ['minio.first-object-storage.svc.cluster.local:443']
+     - job_name: minio-job-resource
+       bearer_token: eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJwcm9tZXRoZXVzIiwic3ViIjoib2tPdW01ZFVpM3dEUW11TiIsImV4cCI6NDg1NzkwMTA1M30.JIsOm8D6EG-06LD33mdsECBi5z9VyHtSCuJvoD5EReY6f5UK8QJodtdsrZegHwnuaAHwonLfP75mBXo8J8AdcA
+       metrics_path: /minio/v2/metrics/resource
+       scheme: https
+       tls_config:
+         insecure_skip_verify: true
+       static_configs:
+       - targets: ['minio.first-object-storage.svc.cluster.local:443']
     # - job_name: kube-etcd
     #   kubernetes_sd_configs:
     #     - role: node
