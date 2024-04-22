@@ -361,7 +361,7 @@ kafka:
     global:
       imagePullSecrets: []
       imageRegistry: ""
-      storageClass: ""
+      storageClass: "nfs-client"
   commonAnnotations: {}
   commonLabels: {}
   config: ""
@@ -432,7 +432,7 @@ kafka:
   global:
     imagePullSecrets: []
     imageRegistry: ""
-    storageClass: ""
+    storageClass: "nfs-client"
   heapOpts: -Xmx1024m -Xms1024m
   hostAliases: []
   hostIPC: false
@@ -476,7 +476,7 @@ kafka:
     mountPath: /opt/bitnami/kafka/logs
     selector: {}
     size: 8Gi
-    storageClass: ""
+    storageClass: "nfs-client"
   logRetentionBytes: _1073741824
   logRetentionCheckIntervalMs: 300000
   logRetentionHours: 168
@@ -638,7 +638,7 @@ kafka:
     mountPath: /bitnami/kafka
     selector: {}
     size: 8Gi
-    storageClass: ""
+    storageClass: "nfs-client"
   podAffinityPreset: ""
   podAnnotations: {}
   podAntiAffinityPreset: soft
@@ -882,7 +882,7 @@ kafka:
       global:
         imagePullSecrets: []
         imageRegistry: ""
-        storageClass: ""
+        storageClass: "nfs-client"
     commonAnnotations: {}
     commonLabels: {}
     configuration: ""
@@ -919,7 +919,7 @@ kafka:
     global:
       imagePullSecrets: []
       imageRegistry: ""
-      storageClass: ""
+      storageClass: "nfs-client"
     heapSize: 1024
     hostAliases: []
     image:
@@ -1001,7 +1001,7 @@ kafka:
       labels: {}
       selector: {}
       size: 8Gi
-      storageClass: ""
+      storageClass: "nfs-client"
     podAffinityPreset: ""
     podAnnotations: {}
     podAntiAffinityPreset: soft
@@ -1157,7 +1157,7 @@ memcached:
     global:
       imagePullSecrets: []
       imageRegistry: ""
-      storageClass: ""
+      storageClass: "nfs-client"
   commonAnnotations: {}
   commonLabels: {}
   containerPorts:
@@ -1185,7 +1185,7 @@ memcached:
   global:
     imagePullSecrets: []
     imageRegistry: ""
-    storageClass: ""
+    storageClass: "nfs-client"
   hostAliases: []
   image:
     debug: false
@@ -1289,7 +1289,7 @@ memcached:
     labels: {}
     selector: {}
     size: 8Gi
-    storageClass: ""
+    storageClass: "nfs-client"
   podAffinityPreset: ""
   podAnnotations: {}
   podAntiAffinityPreset: soft
@@ -1674,7 +1674,7 @@ postgresql:
         service:
           ports:
             postgresql: ""
-      storageClass: ""
+      storageClass: "nfs-client"
   commonAnnotations: {}
   commonLabels: {}
   connMaxAge: 0
@@ -1706,7 +1706,7 @@ postgresql:
       service:
         ports:
           postgresql: ""
-    storageClass: ""
+    storageClass: "nfs-client"
   image:
     debug: false
     digest: ""
@@ -1881,7 +1881,7 @@ postgresql:
       mountPath: /bitnami/postgresql
       selector: {}
       size: 8Gi
-      storageClass: ""
+      storageClass: "nfs-client"
       subPath: ""
     pgHbaConfiguration: ""
     podAffinityPreset: ""
@@ -1992,7 +1992,7 @@ postgresql:
       mountPath: /bitnami/postgresql
       selector: {}
       size: 8Gi
-      storageClass: ""
+      storageClass: "nfs-client"
       subPath: ""
     podAffinityPreset: ""
     podAnnotations: {}
@@ -2128,7 +2128,7 @@ rabbitmq:
     global:
       imagePullSecrets: []
       imageRegistry: ""
-      storageClass: ""
+      storageClass: "nfs-client"
   commonAnnotations: {}
   commonLabels: {}
   communityPlugins: ""
@@ -2317,7 +2317,7 @@ rabbitmq:
   global:
     imagePullSecrets: []
     imageRegistry: ""
-    storageClass: ""
+    storageClass: "nfs-client"
   hostAliases: []
   image:
     debug: false
@@ -2439,7 +2439,7 @@ rabbitmq:
     mountPath: /bitnami/rabbitmq/mnesia
     selector: {}
     size: 8Gi
-    storageClass: ""
+    storageClass: "nfs-client"
     subPath: ""
   plugins: rabbitmq_management rabbitmq_peer_discovery_k8s
   podAffinityPreset: ""
@@ -2568,7 +2568,7 @@ redis:
       imageRegistry: ""
       redis:
         password: ""
-      storageClass: ""
+      storageClass: "nfs-client"
   commonAnnotations: {}
   commonConfiguration: |-
     # Enable AOF https://redis.io/topics/persistence#append-only-file
@@ -2591,7 +2591,7 @@ redis:
     imageRegistry: ""
     redis:
       password: ""
-    storageClass: ""
+    storageClass: "nfs-client"
   image:
     debug: false
     digest: ""
@@ -2656,7 +2656,7 @@ redis:
       selector: {}
       size: 8Gi
       sizeLimit: ""
-      storageClass: ""
+      storageClass: "nfs-client"
       subPath: ""
       subPathExpr: ""
     podAffinityPreset: ""
@@ -2870,7 +2870,7 @@ redis:
       selector: {}
       size: 8Gi
       sizeLimit: ""
-      storageClass: ""
+      storageClass: "nfs-client"
       subPath: ""
       subPathExpr: ""
     podAffinityPreset: ""
@@ -2986,7 +2986,7 @@ redis:
       selector: {}
       size: 100Mi
       sizeLimit: ""
-      storageClass: ""
+      storageClass: "nfs-client"
     preExecCmds: []
     quorum: 2
     readinessProbe:
@@ -3679,7 +3679,7 @@ zookeeper:
     global:
       imagePullSecrets: []
       imageRegistry: ""
-      storageClass: ""
+      storageClass: "nfs-client"
   commonAnnotations: {}
   commonLabels: {}
   configuration: ""
@@ -3716,7 +3716,7 @@ zookeeper:
   global:
     imagePullSecrets: []
     imageRegistry: ""
-    storageClass: ""
+    storageClass: "nfs-client"
   heapSize: 1024
   hostAliases: []
   image:
@@ -3798,7 +3798,7 @@ zookeeper:
     labels: {}
     selector: {}
     size: 8Gi
-    storageClass: ""
+    storageClass: "nfs-client"
   podAffinityPreset: ""
   podAnnotations: {}
   podAntiAffinityPreset: soft
