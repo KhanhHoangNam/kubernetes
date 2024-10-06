@@ -36,10 +36,10 @@ mv kubectl-minio /usr/local/bin/
 	##Best practices
 ##MinIO
 1. SuperAdmin: 
-eyJhbGciOiJSUzI1NiIsImtpZCI6ImRQNlJUdFZoWXZVdXdPYTl3dXBXYzJ2MWhFS2g1Vk9zTHQ2Y1ZEQkJFUXMifQ.eyJpc3MiOiJrdWJlcm5ldGVzL3NlcnZpY2VhY2NvdW50Iiwia3ViZXJuZXRlcy5pby9zZXJ2aWNlYWNjb3VudC9uYW1lc3BhY2UiOiJtaW5pby1vcGVyYXRvciIsImt1YmVybmV0ZXMuaW8vc2VydmljZWFjY291bnQvc2VjcmV0Lm5hbWUiOiJjb25zb2xlLXNhLXNlY3JldCIsImt1YmVybmV0ZXMuaW8vc2VydmljZWFjY291bnQvc2VydmljZS1hY2NvdW50Lm5hbWUiOiJjb25zb2xlLXNhIiwia3ViZXJuZXRlcy5pby9zZXJ2aWNlYWNjb3VudC9zZXJ2aWNlLWFjY291bnQudWlkIjoiYTNiYTgyNTctYzRmYi00MmIwLTg4YjYtNmNhYjA2N2FmMGQyIiwic3ViIjoic3lzdGVtOnNlcnZpY2VhY2NvdW50Om1pbmlvLW9wZXJhdG9yOmNvbnNvbGUtc2EifQ.XMmjGJnbTT8hTY69SYP7RCwwQZIeaKFN6BODAr01a7OAKE0v8v4gFFsANACaFcIS7354R06ygiBBVT-uI_gJWEQngSRebeEczFcvV9Jt0kQZ8QrkzE6ie4U742fT6Wuh4o43q2QD-x-nMJ-pyDK4uxeq8Ge8sCZ8rep_W14kHaCawOUZAjE430q3sAVfJxEXg3o7X2v0OXbz1CSyoYqt9EWaTizVKR95B67NZs6iWWCKQjgx753hI8DUBEb1PjGtgNWkAWi6FbAVzx0ZwtbSjkdV3TvY8oktq04weDm8KKCpgBAoe0MXlWXS4leJSD9PQxVYX9GKL44XhSD9xxEpaQ    
+eyJhbGciOiJSUzI1NiIsImtpZCI6ImRQNlJUdFZoWXZVdXdPYTl3dXBXYzJ2MWhFS2g1Vk9zTHQ2Y1ZEQkJFUXMifQ.eyJpc3MiOiJrdWJlcm5ldGVzL3NlcnZpY2VhY2NvdW50Iiwia3ViZXJuZXRlcy5pby9zZXJ2aWNlYWNjb3VudC9uYW1lc3BhY2UiOiJtaW5pby1vcGVyYXRvciIsImt1YmVybmV0ZXMuaW8vc2VydmljZWFjY291bnQvc2VjcmV0Lm5hbWUiOiJjb25zb2xlLXNhLXNlY3JldCIsImt1YmVybmV0ZXMuaW8vc2VydmljZWFjY291bnQvc2VydmljZS1hY2NvdW50Lm5hbWUiOiJjb25zb2xlLXNhIiwia3ViZXJuZXRlcy5pby9zZXJ2aWNlYWNjb3VudC9zZXJ2aWNlLWFjY291bnQudWlkIjoiMzg5MzFlMWMtOTgwMC00ZjI2LWE5YTYtODI3ODExMTc4MjJmIiwic3ViIjoic3lzdGVtOnNlcnZpY2VhY2NvdW50Om1pbmlvLW9wZXJhdG9yOmNvbnNvbGUtc2EifQ.H7UJeUfcvx5bw2MauCJoU6JdW2JwIW3XbpmyoHt6qZmmBDf6WMVuYYLGEhMTxuVWDUVgXUJtUFw4E0R8A-J174OtIiTqiYwk2oKFULIjGb9KTkl_v8DrozeFGT2POcgMycnSVY1McjUImqzpCGrXFXxD3vghs8B6LZS6Mv_R_yItKCNEH1VmsYL_kilpQfV4-ZOj2MUW1qZzz-VczsWNPADCFK5CJvhew7A4aPhKQTIrmL4jN4sB0_bSOJdEcnc3CWl1kdrzUjJqw0rEsk5U6BBecWMDVavWvZMWXFFul9QBz-RmzbHJyNQ7x4gldtcqVc-n4cYlUe0LLxyQLVUkXg    
 2. Tenant
-username: ARLZ4WFTDDDF1BGW
-password: FKP2Y42TGJQONPCCWAYQ44SOA2DJ0TTV
+username: 03NW0NX53CN11YX2
+password: 0QE3N05LUP5IIRLYYUTYAKWW4WS2IDM0
 3. Metrics
 https://192.168.56.11:30656/minio/v2/metrics/cluster
 ./mc alias set myminio https://192.168.56.10:30656 okOum5dUi3wDQmuN Zxy9IxeWiZgX6Vk9NboLshjp5aO9GR8s --insecure
@@ -97,4 +97,46 @@ pZfx5sS6dQnPXwSBD6ZvRqJ6c5ci5+gMo/wKPmwJVAjoRfGIgu2scIuLDKJEbm8D
 YDaW1mpmY2e2E7KVgdutorECCanfLCbGs5wWHz9pU13TbTCGLNyyAhQrX5brwoaT
 zXWUwAYtJhm0zaE=
 -----END CERTIFICATE-----
+#SSL configuration
+1. openssl genrsa -des3 -out rootCA.key 2048
+2. openssl req -x509 -new -nodes -key rootCA.key -sha256 -days 1825 -out rootCA.pem
+3. sudo openssl genrsa -out lab_app.key 2048
+4. sudo openssl req -new -out lab_app.csr -key lab_app.key -config openssl.cnf
+5. sudo openssl x509 -req -days 3650 -in lab_app.csr -CA rootCA.pem -CAkey rootCA.key -CAcreateserial -out lab_app.crt -extensions v3_req -extfile openssl.cnf
 
+cat lab_app.key > lab.pem && \
+cat lab_app.csr >> lab.pem && \
+cat lab_app.crt >> lab.pem
+
+MINIO_PROMETHEUS_URL:  
+MINIO_PROMETHEUS_JOB_ID: 
+
+http://prometheus-grafana-stack-k-prometheus.monitoring.svc.cluster.local:9090
+
+crictl --runtime-endpoint=unix:///var/run/containerd/containerd.sock --image-endpoint=unix:///var/run/containerd/containerd.sock pull minio/minio:RELEASE.2024-01-18T22-51-28Z
+
+#Install mongodb on kubernetes using helm
+helm install my-mongodb bitnami/mongodb --version 14.7.0
+helm install mongodb bitnami/mongodb \
+  --namespace db-system \
+  --create-namespace \
+  --set persistence.storageClass=nfs-client \
+  --set persistence.size=4Gi \
+  --set service.type=NodePort \
+  --set service.ports.mongodb=27017 \
+  --set service.nodePorts.mongodb=30001
+##Access mongodb
+1. MONGODB_ROOT_PASSWORD: Tt2ISBoIUa
+3. 
+
+mongosh admin --host "mongodb" --authenticationDatabase admin -p $MONGODB_ROOT_PASSWORD
+##
+Backgroud: Java developer
+Target: Làm phần mềm nhanh hơn
+##
+gmail: duongtv4495@gmail.com/@Tranduong95
+icloud: duongtv4495@gmail.com/Anhhn93!
+phone call: 397329426 
+
+
+##Kubernetes expired certificates
